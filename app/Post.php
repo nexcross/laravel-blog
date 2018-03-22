@@ -3,14 +3,15 @@
 namespace App;
 
 use App\Concern\Likeable;
-use App\Concern\Mediable;
 use App\Scopes\PostedScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use Mediable, Likeable;
+    use HasMediaTrait, Likeable;
 
     /**
      * The attributes that are mass assignable.
