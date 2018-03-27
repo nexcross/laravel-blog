@@ -5,7 +5,6 @@ namespace App;
 use App\Concern\Likeable;
 use App\Scopes\PostedScope;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
@@ -23,7 +22,6 @@ class Post extends Model implements HasMedia
         'title',
         'content',
         'posted_at',
-        'thumbnail_id',
         'slug',
     ];
 
@@ -108,44 +106,6 @@ class Post extends Model implements HasMedia
     {
         return $query->whereBetween('posted_at', [now()->subWeek(), now()])
                      ->latest();
-    }
-
-    /**
-     * Check if the post has a valid thumbnail
-     *
-     * @return boolean
-     */
-    public function hasThumbnail(): bool
-    {
-        return $this->hasMedia($this->thumbnail_id);
-    }
-
-    /**
-     * Retrieve the post's thumbnail
-     *
-     * @return mixed
-     */
-    public function thumbnail()
-    {
-        return $this->media->where('id', $this->thumbnail_id)->first();
-    }
-
-    /**
-     * Store and set the post's thumbnail
-     *
-     * @return void
-     */
-    public function storeAndSetThumbnail(UploadedFile $thumbnail)
-    {
-        $thumbnail_name = $thumbnail->store('/');
-
-        $media = $this->media()->create([
-            'filename' => $thumbnail_name,
-            'original_filename' => $thumbnail->getClientOriginalName(),
-            'mime_type' => $thumbnail->getMimeType()
-        ]);
-
-        $this->update(['thumbnail_id' => $media->id]);
     }
 
     /**

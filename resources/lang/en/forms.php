@@ -17,7 +17,6 @@ return [
 
   'posts' => [
     'delete' => 'Are you sure you want to delete this article?',
-    'delete_thumbnail' => "Are you sure you want to delete the image?"
   ],
 
   'tokens' => [
