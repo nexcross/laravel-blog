@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
         $role_admin = Role::firstOrCreate(['name' => Role::ROLE_ADMIN]);
 
         // Users
-        if (User::where('email', 'darthvader@deathstar.ds')->doesntExist()) {
+        if (User::where('email', 'me@aqhmal.com')->doesntExist()) {
             $user = User::create([
-                'name' => 'anakin',
-                'email' => 'darthvader@deathstar.ds',
-                'password' => '4nak1n'
+                'name' => 'Aqhmal Hafizi',
+                'email' => 'me@aqhmal.com',
+                'password' => 'secret'
             ]);
 
             $user->roles()->attach($role_admin->id);
